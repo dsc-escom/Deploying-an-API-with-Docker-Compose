@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+    kong:
+        image: kong:latest
+        restart: always
+        env_file:
+            - ./env/kong.env
+        ports: 
+            - "8000:8000"
+            - "8443:8443"
+            - "127.0.0.1:8001:8001"
+            - "127.0.0.1:8444:8444"
+        volumes:
+            - "kong-vol:/usr/local/kong/declarative"
+        networks:
+             kong-net:
+
+volumes:
+    kong-vol:
+        external: true
+networks:
+    kong-net:
+        name: kong-net
